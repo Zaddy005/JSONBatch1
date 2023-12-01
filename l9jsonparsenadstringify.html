@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> JSON.pare and JSON.stringify </title>
+</head>
+<body>
+
+
+<script type="text/javascript" >
+
+    const students = '{"firstname":"Kyaw","lastname":"Zayar","age":15}';
+
+    console.log(students);
+    console.log(typeof(students));
+
+    studentobj = JSON.parse(students);
+    console.log(students);
+    console.log(typeof(studentobj));
+    console.log(studentobj.firstname);
+
+    const staff = {
+        "firstname":"Hsu",
+        "lastname":"Mon",
+        "age":20
+    };
+
+    console.log(staff);
+    console.log(typeof(staff));
+
+    let staffstr = JSON.stringify(staff);
+    console.log(staffstr);
+    console.log(typeof(staffstr));
+
+
+
+</script>
+</body>
+</html>

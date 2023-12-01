@@ -1,0 +1,65 @@
+API (Application Programming Interface)
+=>XML ( eXtensible Markup Language )
+eXtensible = Exten our notation
+Markup = WRite Using  Markup
+Language = Create your own document
+
+XML is not all the same HTML . But both are Markup Language
+XML is usded to describe the data. HTML is used to  display the data
+XML must define custom rules (tags) . HTMl has pre-define rules ( tag )
+
+=XML
+Need to enclose name key within dobule quotes ( shoul not use single quoutes )
+
+
+eg.element
+<markeup>Something Here</markeup>
+
+eg.attribute
+<markeup title="info" >Something Here</markeup> 
+
+XML document = Describe Data ( XML designed to desribe data and to focus on what data is )
+HTML document = Display ( HTML was designed to display data and focus on how data look )
+
+
+Product List                Root Element ( Pranet Element)
+
+    Product                 Child Of Root Element ( Child Element )
+        Name                Child Elements (root Node)
+        Description         Child Elements (root Node)
+        Price               Child Elements (root Node)
+
+    Product                 Child Of Root Element ( Child Element )
+        Name                Child Elements (root Node)
+        Description         Child Elements (root Node)
+        Price               Child Elements (root Node)
+
+
+<ul>
+    <li></li>
+    <li>
+        <ol>
+            <li></li>
+        </ol>
+    </li>
+    <li></li>
+    <li></li>
+</ul>
+
+=> Example
+
+    Jetbrain
+        Webstorm Editor
+            Webstorm
+            html/css/js support
+            $100
+
+        PHPstorm Editor
+            phpstorm
+            php
+            $100
+
+
+=? ALL XML Document must start with XML Declaration (xml Prolog)
+<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8" ?>

@@ -1,0 +1,130 @@
+=>XSD
+XSD stand for XML Schema Definations
+
+=>XML validation
+to check Syntax | Structure
+(i) XSD - XML Schema Definations
+(ii) DTD -  Document type Definations
+
+https://www.liquid-technologies.com/online-xml-to-xsd-converter
+
+
+=>XSD
+1. XSD can defines what elemets and attribute can be represents
+2. XSD can specifies the elements datatype
+3. XSD decide the number of child elements
+4. XSD defines default value, fixed value,optional
+
+
+=> How to use XSD
+XSD is written in XML
+start with <schema> element to every XML
+<schema> can contain some attribute, but must contain xmlns:xs="http://www.w3.org/2001/XMLSchema"
+
+=Syntax
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="https:www.w3.org/2001/XMLSchema">
+    ----
+    ----
+</xs:schema>
+
+<xs:element name="price" minOccurs="1" maxOccurs="unbounded" type="xs:integer" />
+minOccurs="0" mean not entities
+minOccurs="1" mean mandatory
+
+maxOccurs="unbounded" mean infinite
+
+<price>$150</price>
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="product">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="title" type="xs:string" />
+              <xs:element minOccurs="0" name="name" type="xs:string" />
+              <xs:element minOccurs="0" name="color" type="xs:string" />
+              <xs:element minOccurs="0" name="type" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+
+
+<Root>
+    <product>
+        <title>Food</title>
+        <name>M150</name>
+        <color>Black</color>
+        <type>enegry Drink</type>
+    </product>
+
+    <product>
+        <title>Toyota</title>
+        <type>SUV</type>
+    </product>
+</Root>
+
+
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+    <xs:element name="product" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="productname" minOccurs="1" maxOccurs="unbounded" type="xs:string" />
+                <xs:element name="unitprice" minOccurs="0" maxOccurs="2" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="product">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="productname" type="xs:string" />
+        <xs:element name="unitprice" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+
+<?xml version="1.0" encoding="utf-8" ?>
+<product>
+    <productname>M150</productname>
+    <unitprice>$500</unitprice>
+</product>
+
+
+<?xml version="1.0" encoding="utf-8" ?>
+    <product>
+        <item>
+            <name>M150</name>
+            <price>500</price>
+        </item>
+    </product>
+
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="https://www.w3.org/2001/XMLSchema" >
+    <xs:element name="product" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="item" minOccurs="0" maxOccurs="unbounded" >
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="name" minOccurs="1" maxOccurs="1" type="xs:string" />
+                            <xs:element name="price" minOccurs="1" maxOccurs="unbounded" type="xs:unsignedByte" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element >
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <title>Openweathermap</title>
+</head>
+<body>
+
+<script type="text/javascript" >
+
+    const info = {"coord":{"lon":96.1994,"lat":16.8713},"weather":[{"id":802,"main":"Clouds","description":"scattered clouds","icon":"03n"}],"base":"stations","main":{"temp":301.26,"feels_like":306.02,"temp_min":301.26,"temp_max":301.26,"pressure":1011,"humidity":83},"visibility":6000,"wind":{"speed":2.06,"deg":210},"clouds":{"all":40},"dt":1700753028,"sys":{"type":1,"id":9322,"country":"MM","sunrise":1700696612,"sunset":1700737180},"timezone":23400,"id":1298824,"name":"Yangon","cod":200}
+
+    console.log(info);
+    console.log(info.weather);
+
+    // console.log(info.weather[0]);
+    console.log(info.weather[0].main);
+    console.log(info.weather[0]['main']);
+
+    console.log(info.wind.speed);
+    console.log(info.wind['speed']);
+    console.log(info['wind']['speed']);
+
+</script>
+</body>
+</html>

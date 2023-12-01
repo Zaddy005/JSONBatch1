@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+    <title>Openweathermap API FROM URL 2</title>
+</head>
+<body>
+
+<script type="text/javascript" >
+
+    var xmlhttp = new XMLHttpRequest();
+    var url = "https://randomuser.me/api/";
+
+    xmlhttp.open("GET",url,false); // false mean no synchronize
+    xmlhttp.send();
+
+    if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
+        var result = xmlhttp.responseText;
+    }
+
+    result = JSON.parse(result);
+    console.log(result);
+
+    console.log(result.results);
+    console.log(result.results[0]);
+    console.log(result.results[0].name);
+    console.log(result.results[0].name.title,result.results[0].name.first,result.results[0].name.last);
+    console.log(result.results[0]['name']['title'],result.results[0]['name']['first'],result.results[0]['name']['last']);
+
+
+
+</script>
+</body>
+</html>
+
+<!-- AJAX ( Asynchronous Javascript and XML ) -->
+
+<!--Why AJAX-->
+<!--no refresh-->
+<!--Can request external data or from a server-->
+<!--Can receive external data or from a server-->
+<!--Can send data to a server-->
+
+
+<!--4 mean the request is done-->
+<!--200 mean it's successful return-->
+
+<!-- 23UL -->
