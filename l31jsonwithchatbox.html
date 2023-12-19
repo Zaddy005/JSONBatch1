@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<head>
+    <title>Local Storage with JSON</title>
+    <style type="text/css" >
+        body{
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .container{
+            width: 300px;
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container" >
+        <h4>Choose Your Fav Colors</h4>
+
+        <div  class="colorbox" >
+            <ul class="list-group" >
+
+            </ul>
+        </div>
+
+    </div>
+
+<script type="text/javascript" >
+
+    const getul = document.querySelector('.list-group');
+
+    var datas = `{"colors":
+            {"red color":true,
+            "Blue Color":false,
+            "Green Color":false,
+            "White Color":false,
+            "Green Color":false,
+            "Black Color":true,
+            "Green Color":false,
+            "Pink Color":true,
+            "Violet Color":false
+            }
+        }`
+
+    var dataobjs = JSON.parse(datas);
+    // console.log(dataobjs);
+
+    for(let key in dataobjs.colors){
+        // var status = dataobjs.colors[key] ? 'checked' '' ;
+        var status = !dataobjs.colors[key] ? '' : 'checked';
+
+        var lis = `<li><input type="checkbox" id="" value="" class="swtich" ${status} /><label>${key}</label></li>`;
+        getul.innerHTML += lis;
+    }
+
+    let getswitchs = document.querySelectorAll(".swtich");
+
+    getswitchs.forEach((getswitch)=>{
+        getswitch.addEventListener("change",(e)=>{
+            let key = e.target.nextElementSibling.textContent;
+            if(e.target.checked === true){
+                dataobjs["colors"][key] = true;
+            }else{
+                dataobjs["colors"][key] = false;
+            }
+            console.log(dataobjs);
+        });
+    });
+
+
+</script>
+</body>
+</html>
