@@ -51,28 +51,49 @@
 
     var dataobjs = JSON.parse(datas);
     // console.log(dataobjs);
-
+    let x = 0;
     for(let key in dataobjs.colors){
         // var status = dataobjs.colors[key] ? 'checked' '' ;
         var status = !dataobjs.colors[key] ? '' : 'checked';
-
-        var lis = `<li><input type="checkbox" id="" value="" class="swtich" ${status} /><label>${key}</label></li>`;
+        x++;
+        var lis = `<li><input type="checkbox" id="${x}" value="" class="swtich" ${status} /><label for="${x}" >${key}</label></li>`;
         getul.innerHTML += lis;
     }
 
-    let getswitchs = document.querySelectorAll(".swtich");
+    // let getswitchs = document.querySelectorAll(".swtich");
+    //
+    // getswitchs.forEach((getswitch)=>{
+    //     getswitch.addEventListener("change",(e)=>{
+    //         let key = e.target.nextElementSibling.textContent;
+    //         if(e.target.checked === true){
+    //             dataobjs["colors"][key] = true;
+    //         }else{
+    //             dataobjs["colors"][key] = false;
+    //         }
+    //         console.log(dataobjs);
+    //     });
+    // });
 
-    getswitchs.forEach((getswitch)=>{
-        getswitch.addEventListener("change",(e)=>{
-            let key = e.target.nextElementSibling.textContent;
-            if(e.target.checked === true){
-                dataobjs["colors"][key] = true;
-            }else{
-                dataobjs["colors"][key] = false;
-            }
-            console.log(dataobjs);
-        });
-    });
+    clickeven();
+
+    function clickeven(){
+        var getcheckkeds = document.querySelectorAll(".list-group input[type='checkbox']");
+
+        for(var idx in getcheckkeds){
+            console.log(idx);
+            getcheckkeds[idx].onchange = updatedata;
+        }
+    }
+
+    function updatedata(e){
+        var getinputval = this.value;
+        var getinputstatus = this.checked;
+
+        // dataobjs.colors.getinputval = getinputstatus; // not working cuz it's variable
+
+        dataobjs.colors[getinputval] = getinputstatus; // it's Ok now
+        console.log(dataobjs);
+    }
 
 
 </script>
