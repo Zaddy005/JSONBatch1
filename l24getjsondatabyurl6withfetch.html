@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <title>Openweathermap API FROM URL 5</title>
+    <style type="text/css" >
+        body{
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .container{
+            width: 300px;
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container" >
+    <h3>Using Fetch</h3>
+    <button type="button"  id="btn">Load Data</button>
+
+</div>
+
+<script type="text/javascript" >
+
+    var getbtn = document.getElementById('btn');
+
+    getbtn.addEventListener("click",loaddata);
+
+    function loaddata(){
+
+        var url = `https://dummyjson.com/products`;
+
+        fetch(url).then(function(response){
+            return response.json();
+        }).then(function(data){
+            data.products.forEach((val)=>{
+               console.log(val.id,val.title,val.price);
+            });
+
+        }).catch(function(err){
+            console.log(err);
+        });
+
+    }
+
+</script>
+</body>
+</html>
+
+<!--https://dummyjson.com/-->
+<!--https://ipregistry.co/-->
+
+<!--11DJ-->

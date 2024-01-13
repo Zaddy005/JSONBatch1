@@ -69,11 +69,17 @@
         // console.log(getnum,getunit);
 
         var xmlhttp = new XMLHttpRequest();
-        var url = "http://localhost/jsonserver/l19server.php";
+        var url = "http://localhost/jsonserver/l20server.php";
         xmlhttp.open("POST",url,true); // true mean synchronie
-        // xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
         xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-        xmlhttp.send("number="+getnum+"&unit="+getunit);
+
+        let datajsobj = {
+            number:getnum,
+            unit:getunit
+        }
+
+        let obj = JSON.stringify(datajsobj);
+        xmlhttp.send("datas="+obj);
 
         xmlhttp.onreadystatechange = function (){
             if(xmlhttp.readyState === 4 && xmlhttp.status === 200 ){
@@ -91,4 +97,4 @@
 </body>
 </html>
 
-<!--21PP-->
+<!--28PH-->

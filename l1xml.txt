@@ -5,7 +5,7 @@ Markup = WRite Using  Markup
 Language = Create your own document
 
 XML is not all the same HTML . But both are Markup Language
-XML is usded to describe the data. HTML is used to  display the data
+XML is usded to describe the data. HTML is used to display the data
 XML must define custom rules (tags) . HTMl has pre-define rules ( tag )
 
 =XML

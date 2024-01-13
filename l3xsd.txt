@@ -65,7 +65,7 @@ maxOccurs="unbounded" mean infinite
         <color>Black</color>
         <type>enegry Drink</type>
     </product>
-
+    
     <product>
         <title>Toyota</title>
         <type>SUV</type>

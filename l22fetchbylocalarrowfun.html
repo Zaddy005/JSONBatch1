@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+    <title>Openweathermap API with Fetch</title>
+</head>
+<body>
+
+<script type="text/javascript" >
+
+    var url = "./l12sampledata.json";
+
+    fetch(url).then(function(response){
+        // console.log(response);
+        // console.log(response.headers.get('Content-type'));  //application/json
+        // console.log(response.type); // basic
+        return response.json();
+    }).then(function (data){
+        // console.log(data);
+        // console.log(typeof data);    // object
+
+        // console.log(data.weather);
+        // console.log(data.weather[0].main);
+
+
+    }).catch(function (err){
+        console.log(err);
+    });
+
+    fetch(url).then(response=>response.json()).then(data=>{
+        console.log(data.weather[0].main);
+        console.log(data.name);
+    }).catch(err=>console.log(err));
+
+</script>
+</body>
+</html>
+

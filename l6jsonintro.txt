@@ -17,11 +17,11 @@ JSON is more consise/lightweight/easy-to-understand
 XML is more text longer
 
 =JSON Syntax Rules
-JSON data to wirtten inside curly braces
-Data is represented as key value pairs
-kyes should be enclosed in double quotes
-key and value should be separated by colon (:)
-Comma (,) is used to separted data
+JSON data to wirtten inside curly braces            {}
+Data is represented as key value pairs              key:value
+kyes should be enclosed in double quotes            "key":"value"
+key and value should be separated by colon (:)      
+Comma (,) is used to separted data  
 
 =>Data types of JSON
 string

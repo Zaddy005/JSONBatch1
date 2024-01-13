@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+    <title>Openweathermap API with Fetch</title>
+</head>
+<body>
+
+<script type="text/javascript" >
+    // AJAX
+
+    // initialize the HTTP Request
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.open("GET","./l12sampledata.json",false);
+    // xmlhttp.send();
+    // if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
+    //     var result = xmlhttp.responseText;
+    // }
+    //
+    // console.log(result);
+    // console.log(typeof(result));
+    //
+    // result = JSON.parse(result);
+    // console.log(result);
+    // console.log(typeof(result));
+    //
+    // console.log(result.weather);
+    // console.log(result.weather[0].main);
+    // console.log(result.weather[0]["main"]);
+    //
+    // console.log(result.wind.speed);
+    // console.log(result.wind["speed"]);
+    // console.log(result["wind"]["speed"]);
+    //
+    // console.log(result.name);
+
+
+    // => fetch()
+    // Syntax
+
+    // fetch()
+    //     .then(response=>response.json)
+    //     .then(data)
+    //     .catch(err=>console.log(err))
+
+    var url = "./l12sampledata.json";
+
+    fetch(url).then(function(response){
+        console.log(response);
+        console.log(response.headers.get('Content-type'));  //application/json
+        console.log(response.type); // basic
+        return response.json();
+    }).then(function (data){
+        // console.log(data);
+        // console.log(typeof data);    // object
+
+        // console.log(data.weather);
+        // console.log(data.weather[0].main);
+
+
+    }).catch(function (err){
+        console.log(err);
+    });
+
+
+</script>
+</body>
+</html>
+
+<!-- AJAX ( Asynchronous Javascript and XML ) -->
+
+<!--Why AJAX-->
+<!--no refresh-->
+<!--Can request external data or from a server-->
+<!--Can receive external data or from a server-->
+<!--Can send data to a server-->
+
+
+<!--4 mean the request is done-->
+<!--200 mean it's successful return-->

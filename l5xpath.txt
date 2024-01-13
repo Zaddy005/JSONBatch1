@@ -10,12 +10,12 @@ XPATH is syntax for defining path of the XML element
 @                               Assess the attribute
 count(),last(),text()           Functions
 
-<? xml version="1.0" ?>
+<? xml version="1.0" ?> 
 <product>
-    <name>Jetbrain</name>
-    <description>Webstorm Editor</description>
-    <price>$100</price>
-    <status>true</status>
+    <name>Jetbrain</name>                                   /product/name
+    <description>Webstorm Editor</description>              /product/description
+    <price>$100</price>                                     /product/price
+    <status>true</status>                                   /product/status
 </product>
 
 <?xml version="1.0" encoding="UTF-8 ?>
