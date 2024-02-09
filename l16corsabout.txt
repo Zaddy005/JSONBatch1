@@ -3,11 +3,11 @@ Cross-Origin Resource Sharing ( CORS )
 
 - CORS is a mechanism for  integrating applications
 - CORS defines are loaded in one domain to interest with different domain
-- CORS allows client borwser to chekc with third-party servers (if request auth before data transfer)
+- CORS allows client borwser to check with third-party servers (if request auth before data transfer)
 - To protect cross-site request forgery ( csrf )
 
 
-= Same-Origin policy
+= Same-Origin policy (27:00 min)
 
 URL                                                 Outcome                 Reason
 http://dltbank.com/transfer/create.html             Same Origin
@@ -15,6 +15,7 @@ http://dltbank.com/transfer/report/check.html       Same Origin             Only
 http://mm.dltbank.com/transfer/report/check.html    Different Origin        Different protocol
 http://tha.dltbank.com:81/transfer/create.html      Different Origin        Different port (https:// is port 80 by default )
 http://news.dltbank.com:81/article.html             Different Origin        Different Host
+
 
 Same-origin policy is highly secure but inflexible for genius use cases.
 CORS is an extension of the same-origin policy
