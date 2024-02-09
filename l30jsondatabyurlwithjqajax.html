@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+    <title>Openweathermap API FROM URL 5</title>
+    <style type="text/css" >
+        body{
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .container{
+            width: 300px;
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container" >
+    <h3>Using Fetch</h3>
+    <button type="button"  id="btn">Load Data</button>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" type="text/javascript" ></script>
+<script type="text/javascript" >
+
+    var getbtn = document.getElementById('btn');
+
+    getbtn.addEventListener("click",loaddata);
+
+    function loaddata(){
+
+        var url = `https://dummyjson.com/products`;
+        $.ajax({
+            method:"GET",
+            url:url
+        }).done((data)=>{
+            data.products.forEach((val)=>{
+                console.log(val.id,val.title,val.price);
+            });
+        }).fail(()=>{
+            console.log("errors");
+        });
+
+
+
+    }
+
+</script>
+</body>
+</html>

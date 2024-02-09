@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Openweathermap by url 7 with fetch</title>
+    <style type="text/css">
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container{
+            width: 300px;
+            background-color: #f4f4f4;
+            padding:10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="display"></div>
+        <button type="button" id="btn">Click Me</button>
+
+    </div>
+
+
+<script type="text/javascript">
+
+    var getdisplay = document.getElementById('display');
+
+    var getbtn = document.getElementById('btn');
+
+        getbtn.addEventListener('click',function(){
+            loaddata();
+        });
+
+
+function loaddata(){
+
+      
+
+    var key = `9fb9443zmpu0002e`;
+    var url = `https://api.ipregistry.co?key=${key}`;
+
+    fetch(url).then(function(response){ 
+        return response.json();
+    }).then(function(data){
+        var html = `
+           <ul>
+              <li>External IP = ${data.ip}</li>
+              <li>ECurrent Device = ${data.user_agent.device.name} /  ${data.user_agent.device.type}</li>
+              <li>Operating System = ${data.user_agent.os.name}</li>
+              <li>Load by = ${data.user_agent.type}</li>
+              <li>City = ${data.location.city}</li>
+              <li>Local Currency = ${data.currency.symbol} </li>
+              <li>Time Zone = ${data['time_zone']['id']}</li>
+           </ul>
+        `;
+        getdisplay.innerHTML = html;
+
+    }).catch(function(err){
+        console.log(err);
+    });
+
+}
+
+   
+
+
+// https://ipregistry.co/
+
+</script>
+</body>
+</html>
+
+                       
+
+
+
+  

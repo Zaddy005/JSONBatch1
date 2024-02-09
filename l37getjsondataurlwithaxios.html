@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+    <title>Openweathermap API FROM URL 5</title>
+    <style type="text/css" >
+        body{
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .container{
+            width: 300px;
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container" >
+    <div id="display" >
+    </div>
+    <button type="button"  id="btn">Load Data</button>
+
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" >
+
+    var getdisplay = document.getElementById("display");
+    var getbtn = document.getElementById('btn');
+
+
+    getbtn.addEventListener("click",loaddata);
+
+    function loaddata(){
+        var url = `https://api.spacexdata.com/v3/launches`;
+        axios({
+            method:"GET",
+            url:url
+        }).then((response)=>{
+            console.log(response);
+            let data = response.data,
+                html;
+            data.forEach(function(value,idx){
+                console.log(value);
+                html += `<ul>
+                            <li> Flight Number = ${value.flight_number}</li>
+                            <li> Flight Number = ${value.mission_name}</li>
+                            <li> Flight Number = ${value.launch_year}</li>
+                        </ul>`;
+            });
+            getdisplay.innerHTML = html;
+        }).catch((err)=>{
+            console.log(err);
+        });
+
+    }
+
+
+</script>
+</body>
+</html>
