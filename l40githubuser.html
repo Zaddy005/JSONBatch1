@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Finder By Fetch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <style type="text/css">
+        body{
+            height: 100vh;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-body img{
+            width: 120px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="container" >
+
+        <div class="col-md-6 mx-auto" >
+
+            <div class="card rounded-0" >
+                <div class="card-header" >
+                    <form id="form" action="" method="" >
+                        <div class="form-group"  >
+                            <input type="text" name="search" id="search" class="form-control" placeholder="Enter Serach" autocomplete="off" />
+                        </div>
+                    </form>
+                </div>
+                <div id="displayone" class="card-body" >
+<!--                    <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png" class="rounded-circle" alt="user"  />-->
+<!--                    <h3 class="card-title" > User Name </h3>-->
+<!--                    <p class="clard-subtitle" > Hello world... </p>-->
+<!--                    <ul class="list-group" >-->
+<!--                        <li class="list-group-item" >Repositories : <span class="font-weight-bold" >100</span></li>-->
+<!--                        <li class="list-group-item" >Followers : <span class="font-weight-bold" >200</span></li>-->
+<!--                        <li class="list-group-item" >Following : <span class="font-weight-bold" >300</span></li>-->
+<!--                    </ul>-->
+                </div>
+                <div id="displaytwo" class="card-footer" >
+                    <div class="dropup float-end" >
+                        <a href="javascript:void(0)" class="btn btn-success btn-sm rounded-0 dropdown-toggle" data-bs-toggle="dropdown"  > All Repository</a>
+                        <ul id="displaylistgroup"  class="dropdown-menu" >
+<!--                            <li><a href="#" class="dropdown-item" target="_blank" >Sample Link</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+
+        const getdisplayone = document.getElementById("displayone"),
+            getdisplaytwo = document.getElementById("displaytwo"),
+            getdisplaylistgroup = document.getElementById("displaylistgroup"),
+            getform = document.getElementById('form'),
+            getsearch = document.getElementById('search');
+
+        const url = `https://api.github.com/users/`;
+
+
+        getform.addEventListener("submit",(e)=>{
+           e.preventDefault();
+
+           const getusername = getsearch.value;
+
+           if(getusername.trim()){
+               getresult(getusername);
+               getsearch.value = "";
+
+           }else{
+                window.alert("Please enter a serach value")
+           }
+
+        });
+        // getresult("Zaddy005");
+        function getresult(username){
+
+            axios({
+                method:"GET",
+                url:url+username
+            }).then(response=>{
+
+                const {data} = response;
+                console.log(data);
+                cardbodytodom(data);
+                resultrepos(username);
+            }).catch((err)=>{
+                console.log(err);
+                if(err.response.status === 404 ){
+                    getdisplayone.innerHTML = `
+                        <div class="alert alert-danger text-center" > Threre is no data !!! </div>
+                    `;
+                    getdisplaylistgroup.innerHTML = `
+                                                <li><a href="#" class="dropdown-item" target="_blank" >no Data</a></li>`;
+                }
+
+            });
+
+        }
+
+        function cardbodytodom(user){
+
+            getdisplayone.innerHTML = `
+                    <img src="${user.avatar_url}" class="rounded-circle" alt="user"  />
+                    <h3 class="card-title" >${user.name} </h3>
+                    <p class="clard-subtitle" > ${user.bio} </p>
+                    <ul class="list-group" >
+                        <li class="list-group-item" >Repositories : <span class="font-weight-bold" > ${user.public_repos} </span></li>
+                        <li class="list-group-item" >Followers : <span class="font-weight-bold" > ${user.followers} </span></li>
+                        <li class="list-group-item" >Following : <span class="font-weight-bold" > ${user.following} </span></li>
+                    </ul>
+            `;
+
+        }
+
+        function resultrepos(username){
+            $.ajax({
+                method:"GET",
+                url:url+username+`/repos`,
+                dataType:"json"
+            }).done((data)=>{
+                console.log(data);
+                cardfooterodom(data);
+            }).fail(()=>{
+                console.log("error")
+            });
+        }
+
+        function cardfooterodom(repos){
+            getdisplaylistgroup.innerHTML = "";
+
+            console.log(repos);
+
+            repos.forEach(repo=>{
+                getdisplaylistgroup.innerHTML += `
+                   <li><a href="${repo.html_url}" class="dropdown-item" target="_blank" >${repo.name}</a></li>
+                `;
+            });
+
+        }
+
+    </script>
+</body>
+</html>
+
+
+<!--Github Profile > Github Docs >  Developers > REST API > users > User> Get the authenticated users-->
+<!--Enter this url in browser https://api.github.com/-->
+<!--so you will see all available api route list-->
+<!--14GH-->
