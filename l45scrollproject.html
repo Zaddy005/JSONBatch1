@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Scroll Project </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style type="text/css">
+        body{
+            font-family: Sans-Serif;
+            background-color: #f4f4f4;
+
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            margin: 0;
+            padding: 0;
+        }
+
+        .post{
+            width: 40vw;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3) ;
+
+            position: relative;
+
+            padding: 20px;
+            margin: 40px 0;
+        }
+
+        .post .postid{
+            width: 30px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 50%;
+            color:#fff;
+            font-size: 15px;
+
+            position: absolute;
+            bottom:-15px;
+            right:-15px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .post .info .title{
+            margin: 0;
+        }
+
+        .post .info .content{
+            line-height: 25px;
+        }
+
+        .loader{
+            display: flex;
+            position: fixed;
+            bottom: 0;
+
+            visibility: hidden;
+        }
+
+        .show{
+            visibility: visible;
+        }
+
+        .triangle{
+            width: 0;
+            height: 0;
+            /*background-color: black;*/
+
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid steelblue;
+
+            animation: myani 0.5s ease-in-out infinite;
+        }
+
+        .triangle:nth-last-of-type(2){
+            animation-delay: 0.1s;
+        }
+
+        .triangle:nth-last-of-type(3){
+            animation-delay: 0.2s;
+        }
+
+        @keyframes myani {
+            0%{
+                transform: translateY(0);
+            }
+            50%{
+                transform: translateY(-10px);
+            }
+            100%{
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container" >
+<!--        <div class="post" >-->
+<!--            <div class="postid" >1</div>-->
+<!--            <div></div>-->
+<!--        </div>-->
+
+<!--        <div class="post" >-->
+<!--            <div class="postid" > 2 </div>-->
+<!--            <div class="info" >-->
+<!--                <h4 class="title" >This is new post one</h4>-->
+<!--                <p class="content" >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="post" >-->
+<!--            <div class="postid" > 3 </div>-->
+<!--            <div class="info" >-->
+<!--                <h4 class="title" >This is new post one</h4>-->
+<!--                <p class="content" >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="post" >-->
+<!--            <div class="postid" > 4 </div>-->
+<!--            <div class="info" >-->
+<!--                <h4 class="title" >This is new post one</h4>-->
+<!--                <p class="content" >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+    </div>
+
+    <div class="loader" >
+        <div class="triangle" ></div>
+        <div class="triangle" ></div>
+        <div class="triangle" ></div>
+    </div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+
+    const getcontainer = document.querySelector(".container");
+    const loading = document.querySelector('.loader');
+
+    let page = 1;
+    const limit = 5;
+    let id = 0;
+
+    async function getposts(){
+        const url = `https://randomuser.me/api/?page=${page}&results=${limit}&seed=abc`;
+        let posts;
+
+        await fetch(url).then(response=>{
+            return response.json();
+        }).then(data=>{
+            console.log(data);
+            posts = data.results;
+        }).catch(err=>{
+            console.log(err);
+        });
+
+        return posts;
+
+    }
+
+
+    async function showposttodom(){
+        const getusers = await getposts();
+
+        getusers.forEach((user,idx)=>{
+            const newdiv = document.createElement('div');
+            newdiv.classList.add('post');
+            newdiv.innerHTML = `
+                    <div class="postid" > ${ ++id } </div>
+                    <div class="info" >
+                        <img src="${user.picture.large}" alt="" />
+                        <h4 class="title" > ${user.title}.${user.first} ${user.last} </h4>
+                        <a href="tel:${user.phone}" > ${user.phone} </a>
+                        <br/>
+                        <a href="mailto:${user.email}" > ${user.email} </a>
+                        <p class="country" > ${user.location.country} </p>
+                    </div>
+           `;
+            getcontainer.appendChild(newdiv);
+        })
+    }
+
+    showposttodom();
+
+    window.addEventListener("scroll",()=>{
+        const {scrollTop,clientHeight,scrollHeight} = document.documentElement;
+        if((scrollTop+clientHeight) >= scrollHeight - 3){
+            // console.log("hay");
+            showloading();
+        }
+    });
+
+    function showloading(){
+        loading.classList.add("show");
+        setTimeout(()=>{
+            loading.classList.remove("show");
+            page++;
+            showposttodom();
+        },500);
+    }
+
+</script>
+</body>
+</html>
+
+<!--21AA-->
+<!-- 4PR -->
