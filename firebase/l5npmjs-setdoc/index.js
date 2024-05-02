@@ -39,4 +39,4 @@ setDoc(doc(collection(db,'products')),{
 }).catch(error=>console.log(error));
 
 
-1SD
+// 1SD
