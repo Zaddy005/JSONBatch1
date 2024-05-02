@@ -17,7 +17,7 @@ http://tha.dltbank.com:81/transfer/create.html      Different Origin        Diff
 http://news.dltbank.com:81/article.html             Different Origin        Different Host
 
 
-Same-origin policy is highly secure but inflexible for genius use cases.
+Same-origin policy is highly secure but inflexible for genius/ general use cases.
 CORS is an extension of the same-origin policy
 You need CORS when you to pull data from external AIPs that are public or authorized or ( authorized third-party access to your own server )
 

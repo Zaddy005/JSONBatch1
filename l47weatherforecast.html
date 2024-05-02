@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Api</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body{
+            height: 100vh;
+            background-color: #f4f4f4;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+
+            margin-bottom: 20px;
+        }
+
+        .content .dayname{
+            font-size: 30px;
+            margin: 10px 0;
+        }
+
+        .content .temperature{
+            font-size: 50px;
+        }
+
+        .forecast{
+            text-align: center;
+
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .forecast img{
+            width: 60px;
+            display: block;
+        }
+
+        .forecast .otherday{
+            font-size: 18px;
+        }
+
+        .forecast .temperature{
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+           
+        <div class="col-md-6 mx-auto">
+
+            <div class="card rounded-0">
+
+                <div class="card-header">
+                    <form id="form" action="" method="">
+                        <div class="form-group">
+                            <input type="text" name="search" id="search" class="form-control form-control-sm" placeholder="Search by city..." autocomplete="off">
+                        </div>
+                    </form>
+                </div>
+
+                <div id="displayone" class="card-body">
+                    <div class="content">
+
+                        <div class="detail">
+                            <h2 class="city">Bago</h2>
+                            <p class="dayname">Sunday</p>
+                            <div class="info">
+                                <p class="humidity">Humidity :<span class="humdata"> 50</span> %</p>
+                                <p class="wind">Wind :<span class="windata"> 5</span> M/s</p>
+                                <p class="pressure">Pressure :<span class="predata"> 1050</span> hPa</p>
+                            </div>
+                        </div>
+
+                        <div class="temperature">
+                            <span class="temdata">+35</span> &deg;C
+                        </div>
+
+                    </div>
+
+                    <div class="forecast">
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+
+        // UI 
+        const getform = document.getElementById('form');
+        const getsearch = document.getElementById('search');
+        const getcity = document.querySelector('.city');
+        const getdayname = document.querySelector('.dayname');
+        const gethumidity = document.querySelector('.humidity > .humdata');
+        const getwind = document.querySelector('.wind .windata');
+        const getpressure = document.querySelector('.pressure .predata');
+        const gettemperature = document.querySelector('.temperature .temdata');
+        const getforecast = document.querySelector('.forecast');
+        // console.log(gethumidity);
+
+        const key = `7db76af4a435786379c53a22069ef9d8`;
+        let city = "yangon";
+        const weatherurl = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=${key}`;
+        let forecasturl = `https://api.openweathermap.org/data/2.5/forecast?units=metric&appid=${key}`;
+
+        // console.log(new Date().getDay());
+
+        let dayofweek = (timestamp = new Date().getTime())=>{
+            // return new Date(timestamp).toLocaleDateString(undefined,{'year':'numeric'}); //2024
+            // return new Date(timestamp).toLocaleDateString(undefined,{'month':'numeric'}); //4
+            // return new Date(timestamp).toLocaleDateString('en-EN',{'month':'short'}); //Mar
+            // return new Date(timestamp).toLocaleDateString(undefined,{'month':'lone'}); //March
+            // return new Date(timestamp).toLocaleDateString(undefined,{'day':'numeric'}); //26
+            // return new Date(timestamp).toLocaleDateString(undefined,{'weekday':'short'}); //Thu
+            return new Date(timestamp).toLocaleDateString(undefined,{'weekday':'long'}); //Thursday
+        }
+
+
+        // console.log(dayofweek());
+
+
+        getform.addEventListener('submit',function(e){
+            e.preventDefault();
+
+            const getcity = getsearch.value;
+            console.log(getcity);
+
+            getsearch.value = '';
+            getsearch.focus();
+        }); 
+
+
+        async function getweatherbycity(city){
+
+            let url = `${weatherurl}&q=${city}`;
+            // console.log(url);
+
+            let resposne = await axios.get(url);
+            // console.log(response);
+
+            if(resposne.status !== 200){
+                alert('No result');
+                return;
+            }
+
+            let data = await resposne.json();
+
+            return data;
+        }
+
+
+        async function weatherforcity(city){
+            // console.log(city);
+
+            let response = await getweatherbycity(city);
+            // console.log(response);
+
+            getweathertodom(response);
+        }
+
+        weatherforcity("yangon");
+
+        async function getforecastbycityid(cityid){
+            let url = `${forecasturl}&id=`+cityid;
+            let response = await axios.get(url);
+            let data = await response.data;
+            // console.log('getforecastbycityid',data);
+
+            let forecastlists = data.list;
+            console.log(forecastlists);
+
+
+            let comingdays = [];
+
+            forecastlists.forEach(forecastlist => {
+                console.log(forecastlist);
+
+                let date = new Date(forecastlist.dt_txt);
+                console.log(date);
+
+                let hours = data.getHours();
+                console.log(hours);
+
+                if(hours === 12){
+                    comingdays.push(forecastlist);
+                }
+            });
+
+            // console.log(comingdays);
+            return comingdays;
+        }
+
+
+
+
+
+        function getweathertodom(data){
+            console.log(data);
+
+            getcity.textContent = `${data.name}, ${data.sys.country}`;
+            getdayname.textContent = dayofweek();
+            gethumidity.textContent = data.main.humidity;
+            getwind.textContent = data.wind.speed;
+            getpressure.textContent = data.main.pressure;
+
+            gettemperature.textContent = data.main.temp > 0 ? `+${data.main.temp}` : `${data.main.temp}`;
+        }
+
+        function getforecasttodom(forecasts){
+            console.log(forecast);
+
+            getuiforecast.innerHTML = "";
+
+            forecasts.forEach(forecast=>{
+                console.log(forecast);
+
+                let temperature = forecast.main.temp > 0 ? `${Math.round(forecast.main.temp)}` : `-${Math.round(forecast.main.pressure)}`;
+
+                let html = `<div>
+                            <img src="https://static.vecteezy.com/system/resources/thumbnails/024/825/195/small/3d-weather-icon-day-with-rain-free-png.png" alt="icon">
+                            <h3 class="otherday">getdayname</h3>
+                            <p class="temperature"><span class="othertemdata">${temperature}</span> &deg;C</p>
+                        </div>`;
+
+                getuiforecast.insertAdjacentHTML("beforeend",html);
+            });
+        }
+
+
+
+        // beforebegin
+        // beforeend    firstin firstout
+        // afterbegin   firstin lastout
+        // afterend     firstin lastout
+
+
+        
+
+    </script>
+
+</body>
+</html>
+
+<!-- 7AX -->
+<!-- // 28WP -->
+<!-- 25fb-->
